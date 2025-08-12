@@ -13,6 +13,12 @@ function App() {
         </p>
         <p>The library for web and native user interface</p>
       </header>
+      <h1>Course Name</h1>
+      <ul>
+        <li>React</li>
+        <li>JavaScript</li>
+        <li>HTML</li>
+      </ul>
     </div>
   );
 }
