@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 
-export default function Header() {
+export default function Header({ onRequestFormClick }) {
   return (
     <Navbar bg="success" variant="dark" expand="lg" className="shadow-sm mb-4">
       <Container>
@@ -19,6 +19,13 @@ export default function Header() {
             </Nav.Link>
             <Nav.Link href="/recipes" className="fw-semibold">
               Recipes
+            </Nav.Link>
+            <Nav.Link 
+              onClick={onRequestFormClick} 
+              className="fw-semibold text-warning"
+              style={{ cursor: 'pointer' }}
+            >
+              📝 Recipe Request Form
             </Nav.Link>
           </Nav>
           <Button variant="warning" className="fw-bold text-dark">
