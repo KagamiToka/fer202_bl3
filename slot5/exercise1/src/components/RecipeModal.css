@@ -1,0 +1,28 @@
+.recipe-modal .modal-content {
+  background: #fdfcfb;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.recipe-modal .modal-title {
+  font-weight: bold;
+  color: #2f5d50;
+}
+
+.recipe-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.recipe-desc {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.recipe-info p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
