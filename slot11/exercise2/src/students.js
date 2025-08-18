@@ -1,0 +1,60 @@
+export const students = [
+  { id: 1, 
+    name: "Tháp rơi tự do", 
+    email: "an.nguyen@gmail.com", 
+    age: 19, 
+    avatar: "images/2-17208415907952002847938-1720842033804-1720842034395242030505-1720879463143-1720879463296974894610.webp" 
+},
+  { id: 2, 
+    name: "Có chút ngọt ngào", 
+    email: "binh.tran@fpt.edu.vn", 
+    age: 22, 
+    avatar: "images/chuongnhuocnamkhododanhphimngontinh4-1740447877162489491493.webp" 
+},
+  { id: 3, 
+    name: "Đông miên", 
+    email: "chi.le@fpt.edu.vn", 
+    age: 26, 
+    avatar: "images/d81696ee1b9955231728e9017d90bf79-1607701733429208121509.webp" 
+},
+  { id: 4, 
+    name: "Có thể hay không", 
+    email: "dung.pham@gmail.com", 
+    age: 20, avatar: "" 
+},
+  { id: 5, 
+    name: "Rất muốn bên cạnh anh", 
+    email: "giang.hoang@fpt.edu.vn", 
+    age: 21, 
+    avatar: "images/dan-sao-ca-muc-ham-mat-nguoi-nghi-dao-keo-ke-lien-tuc-dinh-scandal-2d5ac403808x808-15935736001822147466263.gif.webp" 
+},
+  { id: 6, 
+    name: "Đánh mất em", 
+    email: "huy.ngo@gmail.com", 
+    age: 25, 
+    avatar: "images/dien-vien-trinh-sang-phunutoday-3-2328.jpg" 
+},
+  { id: 7, 
+    name: "Ảo ảnh", 
+    email: "khoa.dang@fpt.edu.vn", 
+    age: 18, 
+    avatar: "" 
+},
+  { id: 8, 
+    name: "Ác ma đến từ thiên đường", 
+    email: "lan.tran@gmail.com", 
+    age: 23, 
+    avatar: "images/tinngan_112405_778582356_1.jpg" 
+},
+  { id: 9, 
+    name: "Ôm gánh nặng ngàn cân trưởng thành", 
+    email: "minh.vo@fpt.edu.vn", 
+    age: 27, 
+    avatar: "" 
+},
+  { id: 10, 
+    name: "Chỉ vì quá yêu anh", 
+    email: "nam.bui@gmail.com", 
+    age: 24, 
+    avatar: "images/7-1101-1714739709498-17147397096141177876736.webp" },
+];

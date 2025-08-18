@@ -1,0 +1,21 @@
+.even-card, .student-card.h-100 {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.even-card .card-img-top, .student-card .card-img-top, .student-card img {
+  height: 370px;
+  object-fit: cover;
+}
+
+.even-card .card-body, .student-card .card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.even-card .btn, .student-card .btn {
+  margin-top: auto;
+}
