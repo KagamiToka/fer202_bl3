@@ -7,9 +7,9 @@ function Cart() {
   const { items, incQty, decQty, removeFromCart, subtotal } = useContext(CartContext);
 
   return (
-    <Container className="mt-5">
-      <h2>Cart</h2>
-      <Table striped bordered hover>
+    <Container className="py-4">
+      <h2 className="text-center mb-4" style={{ color: '#1e3a8a' }}>Cart</h2>
+      <Table striped bordered hover className="shadow-sm">
         <thead>
           <tr>
             <th>Product</th>
@@ -39,10 +39,12 @@ function Cart() {
           ))}
         </tbody>
       </Table>
-      <p>Total: ${subtotal}</p>
-      <Button as={Link} to="/checkout" variant="primary">
-        Proceed to Checkout
-      </Button>
+      <div className="text-end mt-3">
+        <p className="fw-bold" style={{ color: '#1e3a8a' }}>Total: ${subtotal}</p>
+        <Button as={Link} to="/checkout" variant="primary" className="mt-2">
+          Proceed to Checkout
+        </Button>
+      </div>
     </Container>
   );
 }

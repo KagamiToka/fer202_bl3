@@ -1,0 +1,27 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #e0e7ff, #ffffff);
+}
+
+.btn-primary {
+  background-color: #1e3a8a;
+  border-color: #1e3a8a;
+}
+
+.btn-primary:hover {
+  background-color: #172554;
+  border-color: #172554;
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.badge-hot {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+}

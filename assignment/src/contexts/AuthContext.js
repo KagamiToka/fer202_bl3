@@ -23,7 +23,11 @@ export function AuthProvider({ children }) {
   });
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(state.user));
+    if (state.user) {
+      localStorage.setItem('user', JSON.stringify(state.user));
+    } else {
+      localStorage.removeItem('user'); // Xóa user khi logout
+    }
   }, [state.user]);
 
   const login = async (email, password) => {
@@ -37,6 +41,7 @@ export function AuthProvider({ children }) {
       }
       return false;
     } catch (error) {
+      console.error('Login error:', error);
       return false;
     }
   };
@@ -46,11 +51,15 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (data) => {
-    const response = await axios.get('http://localhost:3001/accounts');
-    const newId = response.data.length ? Math.max(...response.data.map((acc) => acc.id)) + 1 : 1;
-    const newUser = { id: newId, ...data, wishlist: [] };
-    await axios.post('http://localhost:3001/accounts', newUser);
-    dispatch({ type: 'LOGIN', payload: newUser });
+    try {
+      const response = await axios.get('http://localhost:3001/accounts');
+      const newId = response.data.length ? Math.max(...response.data.map((acc) => acc.id)) + 1 : 1;
+      const newUser = { id: newId, ...data, wishlist: [] };
+      await axios.post('http://localhost:3001/accounts', newUser);
+      dispatch({ type: 'LOGIN', payload: newUser });
+    } catch (error) {
+      console.error('Register error:', error);
+    }
   };
 
   return (

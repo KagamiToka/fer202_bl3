@@ -10,6 +10,7 @@ import axios from 'axios';
 function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
   const { addToCart } = useContext(CartContext);
   const { wishlist, toggleWishlist } = useContext(WishlistContext);
   const { user } = useContext(AuthContext);
@@ -17,9 +18,9 @@ function ProductDetails() {
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/products/${id}`).then((response) => {
-      setProduct(response.data);
-    });
+    axios.get(`http://localhost:3001/products/${id}`)
+      .then((response) => setProduct(response.data))
+      .catch((err) => setError('Failed to load product details. Please try again.'));
   }, [id]);
 
   const handleWishlistClick = () => {
@@ -35,43 +36,57 @@ function ProductDetails() {
     }
   };
 
+  if (error) return <Container>{error}</Container>;
   if (!product) return <Container>Loading...</Container>;
 
   return (
-    <Container className="mt-5">
-      <Card>
-        {product.tags.includes('hot') && <Badge bg="danger" className="badge-hot">Hot</Badge>}
-        <Card.Img variant="top" src={product.image} alt={product.title} />
-        <Card.Body>
-          <Card.Title>{product.title}</Card.Title>
-          <Card.Text>{product.name}</Card.Text>
-          <Card.Text>
+    <Container className="py-5">
+      <Card className="shadow-lg border-0 rounded-3 overflow-hidden">
+        {product.tags.includes('hot') && (
+          <Badge bg="warning" text="dark" className="position-absolute top-0 end-0 m-2 p-2 rounded-pill">
+            Hot
+          </Badge>
+        )}
+        <Card.Img 
+          variant="top" 
+          src={product.image || '/placeholder-image.jpg'} 
+          alt={product.title} 
+          style={{ objectFit: 'cover', height: '450px', borderRadius: '0' }} 
+          onError={(e) => { e.target.src = '/placeholder-image.jpg'; }} 
+        />
+        <Card.Body className="p-4">
+          <Card.Title className="fs-4 fw-bold text-primary">{product.title}</Card.Title>
+          <Card.Text className="text-muted mb-2">{product.name}</Card.Text>
+          <Card.Text className="mb-3">
             {product.salePrice ? (
               <>
-                <span className="text-decoration-line-through me-2">${product.price}</span>
-                <span>${product.salePrice}</span>
+                <span className="text-decoration-line-through text-muted me-2">${product.price}</span>
+                <span className="fs-5 fw-bold text-warning">${product.salePrice}</span>
               </>
             ) : (
-              <span>${product.price}</span>
+              <span className="fs-5 fw-bold text-primary">${product.price}</span>
             )}
           </Card.Text>
-          <Card.Text>{product.description}</Card.Text>
-          <Button
-            variant="primary"
-            onClick={() => {
-              addToCart(product);
-              setToast({ message: 'Added to cart!', type: 'success' });
-            }}
-          >
-            Add to Cart
-          </Button>
-          <Button
-            variant={wishlist.includes(product.id) ? 'outline-secondary' : 'outline-primary'}
-            onClick={handleWishlistClick}
-            className="ms-2"
-          >
-            {wishlist.includes(product.id) ? 'View Wishlist' : 'Add to Wishlist'}
-          </Button>
+          <Card.Text className="mb-4">{product.description}</Card.Text>
+          <div className="d-flex gap-3">
+            <Button
+              variant="primary"
+              className="flex-grow-1 rounded-pill py-2"
+              onClick={() => {
+                addToCart(product);
+                setToast({ message: 'Added to cart!', type: 'success' });
+              }}
+            >
+              Add to Cart
+            </Button>
+            <Button
+              variant={wishlist.includes(product.id) ? 'outline-secondary' : 'outline-primary'}
+              className="flex-grow-1 rounded-pill py-2"
+              onClick={handleWishlistClick}
+            >
+              {wishlist.includes(product.id) ? 'View Wishlist' : 'Add to Wishlist'}
+            </Button>
+          </div>
         </Card.Body>
       </Card>
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}

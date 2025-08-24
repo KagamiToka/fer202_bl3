@@ -14,17 +14,19 @@ function ProductCard({ product }) {
   const isWished = useMemo(() => wishlist.includes(product.id), [wishlist, product.id]);
 
   const handleWishlistClick = () => {
-    if (!user) {
+  if (!user) {
+    if (!toast) { // Chỉ set toast nếu chưa có
       setToast({ message: 'Please sign in to save wishlist', type: 'info' });
       navigate(`/login?redirect_uri=${encodeURIComponent(window.location.pathname)}`);
-    } else {
-      toggleWishlist(product.id);
-      setToast({
-        message: isWished ? 'Removed from wishlist!' : 'Added to wishlist!',
-        type: 'success',
-      });
     }
-  };
+  } else {
+    toggleWishlist(product.id);
+    setToast({
+      message: isWished ? 'Removed from wishlist!' : 'Added to wishlist!',
+      type: 'success',
+    });
+  }
+};
 
   return (
     <Card className="position-relative">
@@ -52,7 +54,7 @@ function ProductCard({ product }) {
         >
           Add to Cart
         </Button>
-        <Button variant="link" as={Link} to={`/product/${product.id}`}>
+        <Button variant="success" as={Link} to={`/product/${product.id}`}>
           View Details
         </Button>
         <Button

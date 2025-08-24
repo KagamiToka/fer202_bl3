@@ -23,13 +23,18 @@ export function WishlistProvider({ children }) {
 
   useEffect(() => {
     if (user) {
-      axios.get(`http://localhost:3001/accounts/${user.id}`).then((response) => {
-        dispatch({ type: 'SET_WISHLIST', payload: response.data.wishlist || [] });
-      });
+      axios.get(`http://localhost:3001/accounts/${user.id}`)
+        .then((response) => {
+          const newWishlist = response.data.wishlist || [];
+          if (JSON.stringify(newWishlist) !== JSON.stringify(wishlist)) {
+            dispatch({ type: 'SET_WISHLIST', payload: newWishlist });
+          }
+        })
+        .catch((error) => console.error('Error fetching wishlist:', error));
     } else {
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }
-  }, [user]);
+  }, [user, wishlist]); // Thêm wishlist vào dependency để đồng bộ khi wishlist thay đổi
 
   const toggleWishlist = async (productId) => {
     dispatch({ type: 'TOGGLE_WISHLIST', payload: productId });
@@ -37,7 +42,13 @@ export function WishlistProvider({ children }) {
       const updatedWishlist = wishlist.includes(productId)
         ? wishlist.filter((id) => id !== productId)
         : [...wishlist, productId];
-      await axios.patch(`http://localhost:3001/accounts/${user.id}`, { wishlist: updatedWishlist });
+      try {
+        await axios.patch(`http://localhost:3001/accounts/${user.id}`, { wishlist: updatedWishlist });
+      } catch (error) {
+        console.error('Error updating wishlist:', error);
+        // Rollback nếu API thất bại
+        dispatch({ type: 'TOGGLE_WISHLIST', payload: productId }); // Hoàn tác thay đổi
+      }
     }
   };
 

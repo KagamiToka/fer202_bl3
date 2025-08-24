@@ -29,7 +29,7 @@ function HeroSlider() {
     >
       {slides.map((slide, index) => (
         <Carousel.Item key={index}>
-          <img className="d-block w-100" src={slide.image} alt={slide.alt} />
+          <img className="d-block w-100" src={slide.image} alt={slide.alt} style={{ objectFit: 'cover', height: '300px' }} />
         </Carousel.Item>
       ))}
     </Carousel>

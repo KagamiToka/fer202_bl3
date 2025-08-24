@@ -19,17 +19,21 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <WishlistProvider>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/product/:id" element={<ProductDetails />} />
-              <Route path="/checkout" element={<Checkout />} />
-            </Routes>
-            <Footer />
+            <div className="app-container">
+              <Header />
+              <main className="main-content">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/product/:id" element={<ProductDetails />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
           </WishlistProvider>
         </CartProvider>
       </AuthProvider>

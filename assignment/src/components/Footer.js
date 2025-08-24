@@ -2,11 +2,12 @@ import { Container } from 'react-bootstrap';
 
 function Footer() {
   return (
-    <footer className="bg-light py-3 mt-5">
-      <Container>
-        <p className="text-center mb-0">&copy; 2025 Your Name. All rights reserved.</p>
-        <p className="text-center">
-          <a href="https://github.com/yourusername">GitHub</a>
+    <footer className="footer bg-primary text-white py-3 mt-auto">
+      <Container className="text-center">
+        <p>&copy; 2025 Your E-Commerce Store. All rights reserved.</p>
+        <p>
+          <a href="/contact" className="text-warning text-decoration-none mx-2">Contact</a> |
+          <a href="/terms" className="text-warning text-decoration-none mx-2">Terms</a>
         </p>
       </Container>
     </footer>
