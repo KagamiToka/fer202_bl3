@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap';
 
 function Footer() {
   return (
-    <footer className="footer bg-primary text-white py-3 mt-auto">
+    <footer className="footer bg-white text-black py-3 mt-auto">
       <Container className="text-center">
         <p>&copy; 2025 Your E-Commerce Store. All rights reserved.</p>
         <p>

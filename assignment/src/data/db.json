@@ -145,19 +145,22 @@
       "wishlist": []
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Nguyen Nam",
       "email": "nam@gmail.com",
       "username": "nam",
       "password": "Nam@12345",
       "secretQuestion": "What is your pet's name?",
       "answer": "Loi",
-      "wishlist": []
+      "wishlist": [
+        "3",
+        "11"
+      ]
     }
   ],
   "orders": [
     {
-      "id": 1756053566665,
+      "id": "1756053566665",
       "userId": 2,
       "items": [
         {

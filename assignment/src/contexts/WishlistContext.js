@@ -1,56 +1,55 @@
-import { createContext, useReducer, useEffect, useContext } from 'react';
-import { AuthContext } from './AuthContext';
-import axios from 'axios';
+import { createContext, useReducer, useEffect, useCallback } from 'react';
 
 export const WishlistContext = createContext();
 
 const wishlistReducer = (state, action) => {
   switch (action.type) {
     case 'SET_WISHLIST':
+      console.log('Setting wishlist to:', action.payload); // Debug
       return action.payload;
     case 'TOGGLE_WISHLIST':
-      return state.includes(action.payload)
+      const newState = state.includes(action.payload)
         ? state.filter((id) => id !== action.payload)
         : [...state, action.payload];
+      console.log('Toggling wishlist, new state:', newState, 'from action:', action.payload); // Debug
+      return newState;
     default:
       return state;
   }
 };
 
 export function WishlistProvider({ children }) {
-  const { user } = useContext(AuthContext);
-  const [wishlist, dispatch] = useReducer(wishlistReducer, JSON.parse(localStorage.getItem('wishlist')) || []);
-
-  useEffect(() => {
-    if (user) {
-      axios.get(`http://localhost:3001/accounts/${user.id}`)
-        .then((response) => {
-          const newWishlist = response.data.wishlist || [];
-          if (JSON.stringify(newWishlist) !== JSON.stringify(wishlist)) {
-            dispatch({ type: 'SET_WISHLIST', payload: newWishlist });
-          }
-        })
-        .catch((error) => console.error('Error fetching wishlist:', error));
-    } else {
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    }
-  }, [user, wishlist]); // Thêm wishlist vào dependency để đồng bộ khi wishlist thay đổi
-
-  const toggleWishlist = async (productId) => {
-    dispatch({ type: 'TOGGLE_WISHLIST', payload: productId });
-    if (user) {
-      const updatedWishlist = wishlist.includes(productId)
-        ? wishlist.filter((id) => id !== productId)
-        : [...wishlist, productId];
-      try {
-        await axios.patch(`http://localhost:3001/accounts/${user.id}`, { wishlist: updatedWishlist });
-      } catch (error) {
-        console.error('Error updating wishlist:', error);
-        // Rollback nếu API thất bại
-        dispatch({ type: 'TOGGLE_WISHLIST', payload: productId }); // Hoàn tác thay đổi
-      }
+  const initialState = () => {
+    const saved = localStorage.getItem('wishlist');
+    try {
+      const parsed = JSON.parse(saved);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      console.warn('Invalid wishlist in localStorage, resetting:', e);
+      return [];
     }
   };
+
+  const [wishlist, dispatch] = useReducer(wishlistReducer, initialState());
+
+  useEffect(() => {
+    const savedWishlist = localStorage.getItem('wishlist');
+    try {
+      const parsed = JSON.parse(savedWishlist) || [];
+      if (JSON.stringify(wishlist) !== JSON.stringify(parsed)) {
+        console.log('Syncing wishlist to localStorage:', wishlist); // Debug
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      }
+    } catch (e) {
+      console.error('Error parsing wishlist from localStorage:', e);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
+  }, [wishlist]);
+
+  const toggleWishlist = useCallback((productId) => {
+    console.log('Calling toggleWishlist with productId:', productId); // Debug
+    dispatch({ type: 'TOGGLE_WISHLIST', payload: productId });
+  }, []); // Không phụ thuộc vào state để tránh re-render
 
   return (
     <WishlistContext.Provider value={{ wishlist, toggleWishlist }}>

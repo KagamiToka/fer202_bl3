@@ -166,3 +166,4 @@ The application is now fully functional with:
 - Professional UI/UX design
 
 **Start the application and enjoy exploring movies! 🎬✨**
+

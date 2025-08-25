@@ -9,7 +9,6 @@ function ProfileForm({ initialName, initialEmail, initialAge }) {
   const [showToast, setShowToast] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  // Validation
   const isNameValid = name && name.trim() !== "";
   const isEmailValid = email.includes("@");
   const isAgeValid = age >= 1;
@@ -24,7 +23,7 @@ function ProfileForm({ initialName, initialEmail, initialAge }) {
   };
 
   return (
-    <div className="p-3">
+    <div className="p-3 w-100 mx-auto">
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>

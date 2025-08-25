@@ -26,7 +26,8 @@ function ProfilePreview({ data, onClose }) {
           <h5>Address</h5>
           <p>
             <strong>Country:</strong> {address.country}<br/>
-            <strong>Detail:</strong> {address.detail}
+            <strong>Street:</strong> {address.streetNumber} {address.streetName}<br/>
+            <strong>City:</strong> {address.city}
           </p>
         </Card.Body>
       </Card>

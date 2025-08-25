@@ -11,7 +11,7 @@ const initialState = {
   step: 0,
   about: { fullName: "", email: "", age: "", avatar: null, avatarUrl: "" },
   account: { username: "", password: "", confirm: "", question: "", answer: "" },
-  address: { country: "", detail: "" },
+  address: { country: "", streetNumber: "", streetName: "", city: "" },
 };
 
 function reducer(state, action) {
@@ -59,7 +59,8 @@ export default function ProfileWizard({ show, onClose }) {
       );
     }
     if (state.step === 2) {
-      return state.address.country && state.address.detail;
+        const { country, streetNumber, streetName, city } = state.address;
+        return !!country && !!streetNumber && !!streetName && !!city;
     }
     return false;
   }, [state]);
@@ -96,7 +97,7 @@ export default function ProfileWizard({ show, onClose }) {
           {state.step === 2 && <AddressForm data={state.address} onChange={setField} />}
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-between">
-          <Button variant="secondary" onClick={prevStep} disabled={state.step === 0}>
+          <Button variant="secondary" onClick={prevStep} hidden={state.step === 0}>
             Previous
           </Button>
           {state.step < 2 ? (
